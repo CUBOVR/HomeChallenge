@@ -2,28 +2,32 @@
 import {test,expect} from '@playwright/test'
 
 test('busqueda', async({page})=>{
-
+    //dirige a la dirección URL
     await page.goto("https://www.mercadolibre.com/")
 
     //click on MX country button
     await page.locator('id=MX').click()
+    await page.screenshot({ pat: 'Inicio.png'})
 
     //provide the item
     await page.locator('id=cb1-edit').fill("playstation 5")
+    await page.screenshot({ pat: 'Item-Search.png'})
 
     //Click search 
     await page.locator('//div/div[2]/form/button/div').click()
     
     //Filter by conditions
     await page.locator('//div[2]/aside/section/div[7]/ul/li[1]/a/span[1]').click()
+    await page.screenshot({ pat: 'Condicion.png'})
 
     //Filter by location
     await page.locator('//ul/li/a/span[text()="Distrito Federal"]').click()
+    await page.screenshot({ pat: 'FiltroUbicacion.png'})
 
     //Order by price
     await page.click('//*[@id=":Raokpp:-trigger"]')
     await page.click('//*[@id=":Raokpp:-menu-list-option-price_desc"]/div/div/span')
-    
+    await page.screenshot({ pat: 'Mayor-menor.png'})
 
     //completo
     const enlaces = await page.evaluate(() => {
@@ -49,10 +53,7 @@ test('busqueda', async({page})=>{
         })
         iItem.push(ITEM);
     }
-    //Para extraer el titulo
-    //const items = await page.$$("//h2[contains(@class, "item")]")
-    //para extraer el precio
-    //const prices = await page.$$("//span[contains(@class, 'price__part--medium')]/span[contains(@class,'amount__fraction')]")
-
+    
     console.log(iItem)
+
 })
